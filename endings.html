@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rivals - Medieval Western Board Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./cover page.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="indexstyle.css">
+    </head>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+        
+        :root {
+            --beige: #f5f5dc;
+            --wine: #722f37;
+            --dark-wine: #5a232a;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Playfair Display', serif;
+            background-color: var(--beige);
+            color: var(--wine);
+            overflow-x: hidden;
+        }
+        
+        .section-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 30px rgba(114, 47, 55, 0.2);
+        }
+        
+        .section-card:hover .card-front {
+            opacity: 0;
+        }
+        
+        .section-card:hover .card-back {
+            opacity: 1;
+        }
+        
+        .card-front, .card-back {
+            transition: opacity 0.5s ease;
+            backface-visibility: hidden;
+        }
+        
+        .card-back {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .audio-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .audio-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .password-input {
+            letter-spacing: 3px;
+        }
+       .image-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .logo-img {
+  width: 90px;
+  height: auto;
+  right: 500px;
+  position: relative;
+  display: block;
+}
+        
+        @media (max-width: 768px) {
+            .section-card {
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-12">
+             <div class="image-container">
+    <a href="index.html" >
+<img src="./back-button.png" class="logo-img" alt="Back Button">
+  </div>
+</a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--dark-wine);">
+                <i class="fas fa-lock mr-3"></i>Secret Stories Collection
+            </h1>
+            <p class="text-xl italic opacity-80">Unlock The Endings Of Each Character When It Wins The Game</p>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Section 1 -->
+            <div class="section-card relative rounded-2xl overflow-hidden shadow-xl cursor-pointer bg-white" onclick="openPasswordModal('section1')">
+                <div class="card-front relative">
+                    <div class="h-48 overflow-hidden">
+                        <div class=" border-2  rounded-xl w-full h-full flex items-center justify-center">
+                             <div class="card-front h-48 overflow-hidden">
+        <img id="section1-front-img" class="w-full h-full object-cover" alt="Front Image">
+    </div>
+    <div class="card-back absolute top-0 left-0 w-full h-full">
+        <img id="section1-back-img" class="w-full h-full object-cover" alt="Back Image">
+    </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                  <i class="fas fa-crown text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">The Reigning King</h3>
+                        <p class="opacity-80 mb-4">Ruler of Hizzine</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-lock mr-1"></i>Locked
+                            </span>
+                            <span class="text-sm">Click to unlock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back bg-gradient-to-br from-amber-50 to-rose-50 p-6 flex flex-col justify-center items-center">
+                  <i class="fas fa-crown text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold text-center mb-2">Thank You!</h3>
+                  
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section-card relative rounded-2xl overflow-hidden shadow-xl cursor-pointer bg-white" onclick="openPasswordModal('section2')">
+                <div class="card-front">
+                    <div class="h-48 overflow-hidden">
+                        <div class=" border-2  rounded-xl w-full h-full flex items-center justify-center">
+                            <div class="card-front h-48 overflow-hidden">
+        <img id="section2-front-img" class="w-full h-full object-cover" alt="Front Image">
+    </div>
+    <div class="card-back absolute top-0 left-0 w-full h-full">
+        <img id="section2-back-img" class="w-full h-full object-cover" alt="Back Image">
+    </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                      <i class="fas fa-hand-holding-heart text-5xl mb-4" style="color: var(--dark-wine);"></i>
+                        <h3 class="text-2xl font-bold mb-2">Keeper of Secrets</h3>
+                        <p class="opacity-80 mb-4">The Undercourt</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-lock mr-1"></i>Locked
+                            </span>
+                            <span class="text-sm">Click to unlock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back bg-gradient-to-br from-amber-50 to-rose-50 p-6 flex flex-col justify-center items-center">
+                    <i class="fas fa-hand-holding-heart text-5xl mb-4" style="color: var(--dark-wine);"></i>
+                    <h3 class="text-2xl font-bold text-center mb-2">We Appreciate You!</h3>
+                    
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section-card relative rounded-2xl overflow-hidden shadow-xl cursor-pointer bg-white" onclick="openPasswordModal('section3')">
+                <div class="card-front">
+                    <div class="h-48 overflow-hidden">
+                        <div class=" border-2 rounded-xl w-full h-full flex items-center justify-center">
+                            <div class="card-front h-48 overflow-hidden">
+        <img id="section3-front-img" class="w-full h-full object-cover" alt="Front Image">
+    </div>
+    <div class="card-back absolute top-0 left-0 w-full h-full">
+        <img id="section3-back-img" class="w-full h-full object-cover" alt="Back Image">
+    </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                  <i class="fas fa-shield-alt text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Shield of Valor</h3>
+                        <p class="opacity-80 mb-4">King Faction</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-lock mr-1"></i>Locked
+                            </span>
+                            <span class="text-sm">Click to unlock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back bg-gradient-to-br from-amber-50 to-rose-50 p-6 flex flex-col justify-center items-center">
+                            <i class="fas fa-shield-alt text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold text-center mb-2">You're Special!</h3>
+                  
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section-card relative rounded-2xl overflow-hidden shadow-xl cursor-pointer bg-white" onclick="openPasswordModal('section4')">
+                <div class="card-front">
+                    <div class="h-48 overflow-hidden">
+                        <div class=" border-2  rounded-xl w-full h-full flex items-center justify-center">
+                            <div class="card-front h-48 overflow-hidden">
+        <img id="section4-front-img" class="w-full h-full object-cover" alt="Front Image">
+    </div>
+    <div class="card-back absolute top-0 left-0 w-full h-full">
+        <img id="section4-back-img" class="w-full h-full object-cover" alt="Back Image">
+    </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                    <i class="fas fa-seedling text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Land Guardian</h3>
+                        <p class="opacity-80 mb-4">Northern Lands</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-lock mr-1"></i>Locked
+                            </span>
+                            <span class="text-sm">Click to unlock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back bg-gradient-to-br from-amber-50 to-rose-50 p-6 flex flex-col justify-center items-center">
+                            <i class="fas fa-seedling text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold text-center mb-2">With Gratitude!</h3>
+                   
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section-card relative rounded-2xl overflow-hidden shadow-xl cursor-pointer bg-white" onclick="openPasswordModal('section5')">
+                <div class="card-front">
+                    <div class="h-48 overflow-hidden">
+                        <div class="border-2  rounded-xl w-full h-full flex items-center justify-center">
+                            <div class="card-front h-48 overflow-hidden">
+        <img id="section5-front-img" class="w-full h-full object-cover" alt="Front Image">
+    </div>
+    <div class="card-back absolute top-0 left-0 w-full h-full">
+        <img id="section5-back-img" class="w-full h-full object-cover" alt="Back Image">
+    </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                      <i class="fas fa-fist-raised text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Fighter of Freedom</h3>
+                        <p class="opacity-80 mb-4">Western Rebellion</p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                                <i class="fas fa-lock mr-1"></i>Locked
+                            </span>
+                            <span class="text-sm">Click to unlock</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back bg-gradient-to-br from-amber-50 to-rose-50 p-6 flex flex-col justify-center items-center">
+                            <i class="fas fa-fist-raised text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold text-center mb-2">Blessings Upon You!</h3>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-2xl w-full max-w-md mx-4 p-6">
+            <div class="text-center">
+                <i class="fas fa-lock text-4xl mb-4" style="color: var(--dark-wine);"></i>
+                <h2 id="modalTitle" class="text-2xl font-bold mb-2">Enter Password</h2>
+                <p id="modalSubtitle" class="mb-6 opacity-80">To unlock this story</p>
+                
+                <div class="mb-6 relative">
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        class="password-input w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-rose-300"
+                        placeholder="Enter secret code"
+                    >
+                    <button 
+                        onclick="togglePasswordVisibility()"
+                        class="absolute right-3 top-3 text-gray-500"
+                    >
+                        <i id="eyeIcon" class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button 
+                        onclick="closePasswordModal()"
+                        class="flex-1 py-3 px-4 bg-gray-200 rounded-xl font-medium hover:bg-gray-300 transition"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        onclick="checkPassword()"
+                        class="flex-1 py-3 px-4 text-white rounded-xl font-medium transition"
+                        style="background-color: var(--dark-wine);"
+                    >
+                        Unlock
+                    </button>
+                </div>
+                
+                <p id="errorMessage" class="text-red-500 mt-4 hidden">
+                    <i class="fas fa-exclamation-circle mr-2"></i>Incorrect password. Please try again.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Modal -->
+    <div id="storyModal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 opacity-0 pointer-events-none">
+    <div class="modal-content bg-white rounded-2xl w-full max-w-3xl mx-4 p-6 relative">
+      <button onclick="closeStoryModal()" class="absolute top-4 right-4 text-2xl text-gray-500 hover:text-gray-700"><i class="fas fa-times"></i></button>
+      <div class="text-center mb-6">
+        <h2 id="storyTitle" class="text-3xl font-bold mb-2">Story Title</h2>
+        <div class="w-24 h-1 bg-rose-300 mx-auto mb-4"></div>
+        <p id="storySubtitle" class="opacity-80 italic">Story Subtitle</p>
+      </div>
+      <div class="flex flex-col md:flex-row gap-6 mb-8">
+        <div class="md:w-1/2">
+          <div class="bg-amber-50 p-4 rounded-xl mb-4">
+            <h3 class="font-bold text-lg mb-2"><i class="fas fa-gift mr-2" style="color: var(--dark-wine);"></i>Thank You!</h3>
+            <p id="thankYouMessage" class="opacity-90">Your appreciation message here</p>
+          </div>
+          <div class="bg-rose-50 p-4 rounded-xl">
+            <h3 class="font-bold text-lg mb-2"><i class="fas fa-scroll mr-2" style="color: var(--dark-wine);"></i>The Story</h3>
+            <p id="storyContent" class="opacity-90">Story content will appear here...</p>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex flex-col gap-4">
+          <div>
+            <h4 class="font-bold mb-2 text-center"><i class="fas fa-language mr-2" style="color: var(--dark-wine);"></i>Arabic Version</h4>
+            <audio id="audioArabic" controls class="w-full hidden"></audio>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2 text-center"><i class="fas fa-language mr-2" style="color: var(--dark-wine);"></i>English Version</h4>
+            <audio id="audioEnglish" controls class="w-full hidden"></audio>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+        // Password hashing function
+        function hashPassword(password) {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = (hash << 5) - hash + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash.toString();
+        }
+        // Section passwords (hashed)
+        const passwords = {
+            section1: hashPassword("*****"),
+            section2: hashPassword("****"),
+            section3: hashPassword("***"),
+            section4: hashPassword("**"),
+            section5: hashPassword("*")
+        };
+        // Story content for each section
+        const stories = {
+            section1: {
+                title: "The Reigning King",
+                subtitle: "Ruling is more than just power. It requires Wisdom and Compassion.",
+                thankYou: "We're honored to have you back our king!",
+                content: "",
+                  frontImg: "./king_image-removebg-preview (1).png",
+        backImg: "./king_image-removebg-preview (1).png",
+                  audioArabic: "./hh.mp3",
+        audioEnglish: "./hh.mp3"
+            },
+            section2: {
+                title: "Keeper of Secrets",
+                subtitle: "I know the struggles & the needs of people",
+                thankYou: "Oh Thankgod! Our new ruler we will be having new begining in your ruling era!",
+                content: "",
+                  frontImg: "./servant_image-removebg-preview (1).png",
+        backImg: "./servant_image-removebg-preview (1).png",
+                  audioArabic: "./audio/section2-ar.mp3",
+        audioEnglish: "./audio/section2-en.mp3"
+            },
+            section3: {
+                title: "Shield of Valor",
+                subtitle: "The people needs a leader who fights for them.",
+                thankYou: "The Knight is the new ruler! Finally our land will be powerfull again!",
+                content: " ",
+                  frontImg: "./knight_image-removebg-preview (1).png",
+        backImg: "./knight_image-removebg-preview (1).png",
+                  audioArabic: "./audio/section2-ar.mp3",
+        audioEnglish: "./audio/section2-en.mp3"
+            },
+            section4: {
+                title: "Land Guardian",
+                subtitle: "Hard work & understanding the land, keeps the kingdom strong!",
+                thankYou: " The Farmer is the new ruller! Our lands will thrive again and our economy will grow!",
+                content: "",
+                  frontImg: "./farmer_image-removebg-preview (1).png",
+        backImg: "./farmer_image-removebg-preview (1).png",
+                  audioArabic: "./audio/section2-ar.mp3",
+        audioEnglish: "./audio/section2-en.mp3"
+            },
+            section5: {
+                title: "Fighter of Freedom",
+                subtitle: "I came from the lowest level in the society! I! AM! the society! without us there is no kingdom!",
+                thankYou: "The Peasant did it he is the new ruler of hizzin now we will have a new era! no more injustice!",
+                content: "",
+                  frontImg: "./peasant_image-removebg-preview (1).png",
+        backImg: "./peasant_image-removebg-preview (1).png",
+                 audioArabic: "./audio/section2-ar.mp3",
+                 audioEnglish: "./audio/section2-en.mp3"
+            }
+        };
+   let currentSection = null;
+
+    function openPasswordModal(sectionId) {
+      currentSection = sectionId;
+      document.getElementById("modalTitle").textContent = `Unlock ${stories[sectionId].title}`;
+      document.getElementById("modalSubtitle").textContent = stories[sectionId].subtitle;
+      document.getElementById("passwordInput").value = '';
+      document.getElementById("errorMessage").classList.add("hidden");
+      document.getElementById("passwordModal").classList.remove("opacity-0", "pointer-events-none");
+    }
+
+    function closePasswordModal() {
+      document.getElementById("passwordModal").classList.add("opacity-0", "pointer-events-none");
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById("passwordInput");
+      const icon = document.getElementById("eyeIcon");
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = 'password';
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    }
+
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      if (hashPassword(input) === passwords[currentSection]) {
+        closePasswordModal();
+        openStoryModal(currentSection);
+      } else {
+        document.getElementById("errorMessage").classList.remove("hidden");
+        document.getElementById("passwordInput").value = '';
+        document.getElementById("passwordInput").focus();
+      }
+    }
+
+    function openStoryModal(sectionId) {
+      const story = stories[sectionId];
+      document.getElementById("storyTitle").textContent = story.title;
+      document.getElementById("storySubtitle").textContent = story.subtitle;
+      document.getElementById("thankYouMessage").textContent = story.thankYou;
+      document.getElementById("storyContent").textContent = story.content;
+      document.getElementById("audioArabic").src = story.audioArabic;
+      document.getElementById("audioEnglish").src = story.audioEnglish;
+      document.getElementById("audioArabic").classList.remove("hidden");
+      document.getElementById("audioEnglish").classList.remove("hidden");
+      document.getElementById("storyModal").classList.remove("opacity-0", "pointer-events-none");
+    }
+
+    function closeStoryModal() {
+      document.getElementById("storyModal").classList.add("opacity-0", "pointer-events-none");
+      document.getElementById("audioArabic").pause();
+      document.getElementById("audioArabic").currentTime = 0;
+      document.getElementById("audioEnglish").pause();
+      document.getElementById("audioEnglish").currentTime = 0;
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target === document.getElementById("passwordModal")) closePasswordModal();
+      if (e.target === document.getElementById("storyModal")) closeStoryModal();
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+    Object.keys(stories).forEach(sectionId => {
+        const story = stories[sectionId];
+
+        const frontImg = document.getElementById(`${sectionId}-front-img`);
+        const backImg = document.getElementById(`${sectionId}-back-img`);
+
+        if (frontImg) frontImg.src = story.frontImg;
+        if (backImg) backImg.src = story.backImg;
+    });
+});
+  </script>
+
+  <p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">
+    Made By DikaStudios:GameVerse
+    <a href="index.html" style="color: #fff;text-decoration: underline;" target="_blank">Home</a>
+  </p>
+</body>
+</html>
